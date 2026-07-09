@@ -452,3 +452,8 @@ tools/ImageCropper/**/*.png
 
 config
 debug
+
+#杂项
+*.ipynb
+agent/*.png
+assets/agent
