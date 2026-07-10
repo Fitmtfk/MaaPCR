@@ -1,10 +1,25 @@
 from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 from maa.context import Context
+
+from logger import logger
+
+
 import cv2
 import numpy as np
+import os
+import json
+from pathlib import Path
 
-print("import route_recognition")
+PI_RESOURCE = os.environ.get("PI_RESOURCE") or '{}'
+logger.set_log_dir(Path() / "debug" / "route_Recognition.log","debug")
+base_path = Path((json.loads(PI_RESOURCE).get("path") or ["./resource"])[0])
+logger.info("资源路径："+str(base_path.resolve()))
+
+tpl_char = cv2.imdecode(np.fromfile(base_path / "image" / "连结印记.png", dtype=np.uint8),cv2.IMREAD_COLOR)
+tpl_event = cv2.imdecode(np.fromfile(base_path / "image" / "EVENT.png", dtype=np.uint8),cv2.IMREAD_COLOR)
+tpl_normal = cv2.imdecode(np.fromfile(base_path / "image" / "战斗-普通.png", dtype=np.uint8),cv2.IMREAD_COLOR)
+tpl_road = cv2.imdecode(np.fromfile(base_path / "image" / "道路.png" , dtype=np.uint8),cv2.IMREAD_UNCHANGED)
 
 COLUMNS_X = [
     (380, 500),
@@ -19,7 +34,7 @@ ROWS_Y = [
 
 def find_nodes(img, grid_data, template, type_name, threshold=0.75):
     if template is None:
-        print(f"❌ 错误：未能成功加载模板图片 -> {type_name}")
+        logger.error(f"❌ 错误：未能成功加载模板图片 -> {type_name}")
         return
     h, w = template.shape[:2]
     # 执行模板匹配
@@ -48,15 +63,14 @@ def find_nodes(img, grid_data, template, type_name, threshold=0.75):
                     "pos": (center_x, center_y)
                 }
 
-def is_line_existing(img, pos_A, pos_B, row_curr, row_next, tpl_path, threshold=0.82):
+def is_line_existing(img, pos_A, pos_B, row_curr, row_next, threshold=0.82):
     if pos_A is None or pos_B is None:
         return False
         
-    tpl_rgba = cv2.imdecode(np.fromfile(tpl_path, dtype=np.uint8), cv2.IMREAD_UNCHANGED)
-    if tpl_rgba is None:
+    if tpl_road is None:
         raise ValueError("图片解码失败")
-    tpl_bgr = tpl_rgba[:, :, :3]
-    tpl_alpha = tpl_rgba[:, :, 3]
+    tpl_bgr = tpl_road[:, :, :3]
+    tpl_alpha = tpl_road[:, :, 3]
 
     x1, y1 = int(pos_A[0]), int(pos_A[1])
     x2, y2 = int(pos_B[0]), int(pos_B[1])
@@ -65,11 +79,11 @@ def is_line_existing(img, pos_A, pos_B, row_curr, row_next, tpl_path, threshold=
     is_horizontal = (row_curr == row_next)
     
     if is_horizontal:
-        # 🟢 【水平线分支】: 保持原汁原味，不拉伸，不旋转！
+        #【水平线分支】: 
         current_tpl = tpl_bgr
         current_mask = tpl_alpha
     else:
-        # 🔵 【斜线分支】: 拉伸至固定 325 像素，并顺/逆时针旋转 31°
+        #【斜线分支】: 拉伸至固定 325 像素，并顺/逆时针旋转 31°
         fixed_width = 325 
         orig_h = tpl_bgr.shape[0]
         tpl_bgr_resized = cv2.resize(tpl_bgr, (fixed_width, orig_h), interpolation=cv2.INTER_LINEAR)
@@ -130,11 +144,11 @@ class GameGraph:
 
     def show_graph(self):
         """直观打印当前图的完整结构"""
-        print("=== 📊 关卡数据图拓扑矩阵 ===")
+        logger.info("=== 📊 关卡数据图拓扑矩阵 ===")
         for node_id, edges in self.adjacency_list.items():
             node_type = self.get_type(node_id)
             edge_strs = [f"{target}({self.get_type(target)})" for target in edges]
-            print(f"📍 节点 {node_id} [{node_type}] ──> 可达: {edge_strs}")
+            logger.info(f"📍 节点 {node_id} [{node_type}] ──> 可达: {edge_strs}")
 
 def find_all_graph_paths(graph, current_node, end_type, current_path=[]):
     """
@@ -170,11 +184,11 @@ def plan_routes_by_type(graph, start_type="CHAR", end_type="CHAR"):
     start_nodes = [node_id for node_id, t_type in graph.nodes.items() if t_type == start_type]
     
     if not start_nodes:
-        print(f"⚠️  图中未发现类型为 [{start_type}] 的起点节点。")
+        logger.info(f"⚠️  图中未发现类型为 [{start_type}] 的起点节点。")
         return False
         
-    print(f"🚀 [网格扫描] 锁定起点节点: {start_nodes}")
-    print(f"🎯 [目标锁定] 终点类型: [{end_type}]\n")
+    logger.info(f"🚀 [网格扫描] 锁定起点节点: {start_nodes}")
+    logger.info(f"🎯 [目标锁定] 终点类型: [{end_type}]\n")
     
     total_routes_found = 0
     
@@ -195,14 +209,14 @@ def plan_routes_by_type(graph, start_type="CHAR", end_type="CHAR"):
             normals_count = type_chain.count("NORMAL")
             chars_count = type_chain.count("CHAR")
             
-            print(f"🛣️  【可行方案 {total_routes_found}】")
-            print(f"  🧭 节点走位: {' ──> '.join(path)}")
-            print(f"  🎨 属性步进: {' ──> '.join([f'{n}({graph.get_type(n)})' for n in path])}")
-            print(f"  📊 旅途成分: CHAR × {chars_count} | EVENT × {events_count} | NORMAL × {normals_count}")
-            print("-" * 65)
+            logger.info(f"🛣️  【可行方案 {total_routes_found}】")
+            logger.info(f"  🧭 节点走位: {' ──> '.join(path)}")
+            logger.info(f"  🎨 属性步进: {' ──> '.join([f'{n}({graph.get_type(n)})' for n in path])}")
+            logger.info(f"  📊 旅途成分: CHAR × {chars_count} | EVENT × {events_count} | NORMAL × {normals_count}")
+            logger.info("-" * 65)
             
     if total_routes_found == 0:
-        print(f"🧱 规划失败：全图未发现任何能从 [{start_type}] 走到 [{end_type}] 的合规有向通路。")
+        logger.info(f"🧱 规划失败：全图未发现任何能从 [{start_type}] 走到 [{end_type}] 的合规有向通路。")
         return False
     else:
         return True
@@ -217,10 +231,7 @@ class route_recognition(CustomRecognition):
     ) -> CustomRecognition.AnalyzeResult:
 
         img = argv.image
-        tpl_char = cv2.imdecode(np.fromfile("..\\assets\\resource\\image\\连结印记.png", dtype=np.uint8),cv2.IMREAD_COLOR)
-        tpl_event = cv2.imdecode(np.fromfile("..\\assets\\resource\\image\\EVENT.png", dtype=np.uint8),cv2.IMREAD_COLOR)
-        tpl_normal = cv2.imdecode(np.fromfile("..\\assets\\resource\\image\\战斗-普通.png", dtype=np.uint8),cv2.IMREAD_COLOR)
-
+        
         # 初始化 3x3 网格数据结构
         grid_data = [[{"type": "EMPTY", "pos": None} for _ in range(3)] for _ in range(3)]
         
@@ -228,15 +239,13 @@ class route_recognition(CustomRecognition):
         find_nodes(img,grid_data,tpl_char, "CHAR")
         find_nodes(img,grid_data,tpl_event, "EVENT")
         find_nodes(img,grid_data,tpl_normal, "NORMAL")
-        print("--- 节点数字化结果 ---")
+        logger.info("--- 节点数字化结果 ---")
         for c in range(3):
             for r in range(3):
                 node = grid_data[c][r]
-                print(f"列 {c} 行 {r} -> 类型: {node['type']}, 核心点击坐标: {node['pos']}")
+                logger.info(f"列 {c} 行 {r} -> 类型: {node['type']}, 核心点击坐标: {node['pos']}")
         # 实例化数据图
         level_graph = GameGraph()
-
-        tpl_path = "..\\assets\\resource\\image\\道路.png"
 
         # 先把所有存在的节点和它们的类型灌进去
         for col in range(3): # 遍历所有 3 列
@@ -255,7 +264,7 @@ class route_recognition(CustomRecognition):
                     node_end = grid_data[col+1][row_next]
                     if node_end is None: continue
 
-                    if is_line_existing(img, node_start["pos"], node_end["pos"], row_curr, row_next, tpl_path):
+                    if is_line_existing(img, node_start["pos"], node_end["pos"], row_curr, row_next):
                         level_graph.add_edge(col, row_curr, col+1, row_next)
 
         level_graph.show_graph()
