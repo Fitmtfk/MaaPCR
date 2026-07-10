@@ -457,3 +457,5 @@ debug
 *.ipynb
 agent/*.png
 assets/agent
+*.mpe.json
+*.ipynb_checkpoints

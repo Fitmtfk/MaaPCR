@@ -1,20 +1,32 @@
 {
-    "$__mpe_config_黎明界刷开局-拉比林斯": {
-        "$__mpe_code": {
-            "prefix": "",
-            "filePath": "D:\\Github\\MaaPCR\\assets\\resource\\pipeline\\黎明界刷开局-拉比林斯.json",
-            "lastSyncTime": 1783601891800,
-            "isDeleted": true,
-            "isModifiedExternally": true,
-            "coordinateMode": "absolute-v1",
-            "savedViewport": {
-                "x": -1464,
-                "y": -119,
-                "zoom": 0.63
-            },
-            "filename": "黎明界刷开局-拉比林斯",
-            "version": "v1.7.3"
-        }
+    "黎明界主页": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "黎明界主页.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1140,
+                    480,
+                    70,
+                    70
+                ]
+            }
+        },
+        "post_delay": 500,
+        "timeout": 1000,
+        "next": [
+            "工会选择——拉比林斯"
+        ],
+        "on_error": [
+            "冒险"
+        ]
     },
     "工会选择——拉比林斯": {
         "recognition": {
@@ -43,13 +55,35 @@
         ],
         "next": [
             "工会选择确认"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 2572,
-                "y": 771
+        ]
+    },
+    "右滑": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    960,
+                    540,
+                    50,
+                    50
+                ],
+                "end": [
+                    [
+                        0,
+                        540,
+                        50,
+                        50
+                    ]
+                ],
+                "duration": [
+                    200
+                ]
             }
-        }
+        },
+        "post_delay": 1200,
+        "next": [
+            "工会选择——拉比林斯"
+        ]
     },
     "冒险": {
         "recognition": {
@@ -75,13 +109,7 @@
         "post_delay": 0,
         "next": [
             "进入黎明界"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 2572,
-                "y": 325
-            }
-        }
+        ]
     },
     "进入黎明界": {
         "recognition": {
@@ -101,13 +129,7 @@
         ],
         "on_error": [
             "冒险"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 2892,
-                "y": 358
-            }
-        }
+        ]
     },
     "工会选择确认": {
         "recognition": {
@@ -121,20 +143,11 @@
         "action": {
             "type": "Click"
         },
-        "post_delay": 3000,
+        "post_delay": 3500,
         "timeout": 100,
         "next": [
-            "地图"
-        ],
-        "on_error": [
             "点击空白"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 2892,
-                "y": 724
-            }
-        }
+        ]
     },
     "地图": {
         "recognition": {
@@ -151,16 +164,7 @@
         "post_delay": 300,
         "next": [
             "BOSS1"
-        ],
-        "on_error": [
-            "点击空白"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 3532,
-                "y": 651
-            }
-        }
+        ]
     },
     "点击空白": {
         "action": {
@@ -175,15 +179,13 @@
             }
         },
         "post_delay": 300,
+        "timeout": 500,
         "next": [
             "地图"
         ],
-        "$__mpe_code": {
-            "position": {
-                "x": 3175,
-                "y": 860
-            }
-        }
+        "on_error": [
+            "点击空白"
+        ]
     },
     "BOSS1": {
         "recognition": {
@@ -212,13 +214,7 @@
             "暗黑滴水嘴兽",
             "厄勒克特拉夫人",
             "冰霜魔狼"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 12,
-                "y": 405
-            }
-        }
+        ]
     },
     "巨型魔像": {
         "recognition": {
@@ -243,13 +239,7 @@
         "post_delay": 300,
         "next": [
             "退出"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 1292,
-                "y": 325
-            }
-        }
+        ]
     },
     "退出": {
         "action": {
@@ -266,13 +256,7 @@
         "post_delay": 200,
         "next": [
             "退出确认"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 1612,
-                "y": 559
-            }
-        }
+        ]
     },
     "退出确认": {
         "recognition": {
@@ -289,13 +273,7 @@
         "post_delay": 200,
         "next": [
             "黎明界主页"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 1932,
-                "y": 469
-            }
-        }
+        ]
     },
     "毒液沙罗曼蛇": {
         "recognition": {
@@ -320,13 +298,32 @@
         "post_delay": 300,
         "next": [
             "BOSS2蛇"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 332,
-                "y": 388
+        ]
+    },
+    "暗黑滴水嘴兽": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "暗黑滴水嘴兽.png"
+                ]
             }
-        }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1455,
+                    954,
+                    45,
+                    43
+                ]
+            }
+        },
+        "post_delay": 300,
+        "next": [
+            "退出"
+        ]
     },
     "厄勒克特拉夫人": {
         "recognition": {
@@ -351,13 +348,7 @@
         "post_delay": 300,
         "next": [
             "BOSS2"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 332,
-                "y": 1182
-            }
-        }
+        ]
     },
     "冰霜魔狼": {
         "recognition": {
@@ -382,13 +373,7 @@
         "post_delay": 300,
         "next": [
             "BOSS2"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 332,
-                "y": 785
-            }
-        }
+        ]
     },
     "炸脖龙": {
         "recognition": {
@@ -413,13 +398,7 @@
         "post_delay": 300,
         "next": [
             "查看1层路线"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 972,
-                "y": 700
-            }
-        }
+        ]
     },
     "愤怒巨龙": {
         "recognition": {
@@ -444,13 +423,7 @@
         "post_delay": 300,
         "next": [
             "查看1层路线"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 972,
-                "y": 1097
-            }
-        }
+        ]
     },
     "究极守护者": {
         "recognition": {
@@ -475,13 +448,7 @@
         "post_delay": 300,
         "next": [
             "查看1层路线"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 972,
-                "y": 1494
-            }
-        }
+        ]
     },
     "奇美拉": {
         "recognition": {
@@ -503,13 +470,7 @@
                 ]
             }
         },
-        "post_delay": 200,
-        "$__mpe_code": {
-            "position": {
-                "x": 732,
-                "y": 12
-            }
-        }
+        "post_delay": 200
     },
     "领主哥布林": {
         "recognition": {
@@ -531,13 +492,7 @@
                 ]
             }
         },
-        "post_delay": 200,
-        "$__mpe_code": {
-            "position": {
-                "x": 972,
-                "y": 12
-            }
-        }
+        "post_delay": 200
     },
     "BOSS2": {
         "recognition": {
@@ -567,13 +522,7 @@
         ],
         "on_error": [
             "关闭BOSS2窗口"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 652,
-                "y": 1083
-            }
-        }
+        ]
     },
     "BOSS2蛇": {
         "recognition": {
@@ -602,13 +551,7 @@
         ],
         "on_error": [
             "关闭BOSS2窗口"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 652,
-                "y": 388
-            }
-        }
+        ]
     },
     "节点1": {
         "action": {
@@ -622,13 +565,7 @@
                 ]
             }
         },
-        "post_delay": 200,
-        "$__mpe_code": {
-            "position": {
-                "x": 492,
-                "y": 12
-            }
-        }
+        "post_delay": 200
     },
     "选人1": {
         "action": {
@@ -644,13 +581,7 @@
         },
         "next": [
             "选人2"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 2252,
-                "y": 1227
-            }
-        }
+        ]
     },
     "选人2": {
         "action": {
@@ -666,13 +597,7 @@
         },
         "next": [
             "选人3"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 2572,
-                "y": 1227
-            }
-        }
+        ]
     },
     "选人3": {
         "action": {
@@ -688,13 +613,7 @@
         },
         "next": [
             "去邀请"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 2892,
-                "y": 1227
-            }
-        }
+        ]
     },
     "去邀请": {
         "recognition": {
@@ -711,13 +630,7 @@
         "post_delay": 200,
         "next": [
             "关闭选人弹窗"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 3212,
-                "y": 1184
-            }
-        }
+        ]
     },
     "查看1层路线": {
         "action": {
@@ -751,13 +664,7 @@
         ],
         "on_error": [
             "退出"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 1292,
-                "y": 1081
-            }
-        }
+        ]
     },
     "1层路线检查": {
         "recognition": {
@@ -771,13 +678,7 @@
         "rate_limit": 500,
         "next": [
             "打开选人界面"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 1612,
-                "y": 1167
-            }
-        }
+        ]
     },
     "关闭BOSS2窗口": {
         "action": {
@@ -794,13 +695,7 @@
         "post_delay": 300,
         "next": [
             "退出"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 972,
-                "y": 388
-            }
-        }
+        ]
     },
     "打开选人界面": {
         "action": {
@@ -816,13 +711,7 @@
         },
         "next": [
             "选人1"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 1932,
-                "y": 1227
-            }
-        }
+        ]
     },
     "关闭选人弹窗": {
         "action": {
@@ -837,13 +726,7 @@
             }
         },
         "repeat": 5,
-        "repeat_delay": 300,
-        "$__mpe_code": {
-            "position": {
-                "x": 3532,
-                "y": 1199
-            }
-        }
+        "repeat_delay": 300
     },
     "冒险-b": {
         "recognition": {
@@ -852,12 +735,6 @@
                 "template": [
                     "冒险-b.png"
                 ]
-            }
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": 12,
-                "y": 12
             }
         }
     },
@@ -868,112 +745,6 @@
                 "template": [
                     "冒险-a.png"
                 ]
-            }
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": 252,
-                "y": 12
-            }
-        }
-    },
-    "黎明界主页": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "黎明界主页.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1140,
-                    480,
-                    70,
-                    70
-                ]
-            }
-        },
-        "post_delay": 500,
-        "timeout": 1000,
-        "next": [
-            "工会选择——拉比林斯"
-        ],
-        "on_error": [
-            "冒险"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 2252,
-                "y": 424
-            }
-        }
-    },
-    "右滑": {
-        "action": {
-            "type": "Swipe",
-            "param": {
-                "begin": [
-                    960,
-                    540,
-                    50,
-                    50
-                ],
-                "end": [
-                    [
-                        0,
-                        540,
-                        50,
-                        50
-                    ]
-                ],
-                "duration": [
-                    200
-                ]
-            }
-        },
-        "post_delay": 1200,
-        "next": [
-            "工会选择——拉比林斯"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 2252,
-                "y": 854
-            }
-        }
-    },
-    "暗黑滴水嘴兽": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "暗黑滴水嘴兽.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1455,
-                    954,
-                    45,
-                    43
-                ]
-            }
-        },
-        "post_delay": 300,
-        "next": [
-            "退出"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 652,
-                "y": 1508
             }
         }
     }
