@@ -211,20 +211,22 @@ def main():
         try:
             with open(pth_file_path, "r+", encoding="utf-8") as f:
                 content = f.read()
-                # 取消注释 import site
-                content = content.replace("#import site", "import site")
-                content = content.replace(
-                    "# import site", "import site"
-                )  # 处理可能的空格
-
-                # 添加必要的相对路径 (相对于 DEST_DIR)
-                required_paths = [".", "Lib", "Lib\\site-packages", "DLLs"]
-                for p_path in required_paths:
-                    if p_path not in content.splitlines():  # 避免重复添加
-                        content += f"\n{p_path}"
-                f.seek(0)
-                f.write(content)
-                f.truncate()
+            # 取消注释 import site
+            content = content.replace("#import site", "import site")
+            content = content.replace(
+                "# import site", "import site"
+            )  # 处理可能的空格
+            # 添加必要的相对路径 (相对于 DEST_DIR)
+            required_paths = [".", "Lib", "Lib\\site-packages", "DLLs"]
+            for p_path in required_paths:
+                if p_path not in content.splitlines():  # 避免重复添加
+                    content += f"\n{p_path}"
+            #添加agent路径
+            lines=content.splitlines()
+            if "../agent" not in lines:
+                lines.insert(0,"../agent")
+            with open(pth_file_path, "w", encoding="utf-8") as f:
+                f.write("\n".join(lines) + "\n")
             print("._pth 文件修改完成。")
         except Exception as e:
             print(f"修改 ._pth 文件失败: {e}")
