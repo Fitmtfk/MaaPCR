@@ -4,7 +4,6 @@ from maa.context import Context
 
 from logger import logger
 
-
 import cv2
 import numpy as np
 import os

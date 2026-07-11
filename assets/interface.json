@@ -21,7 +21,7 @@
     ],
     "resource": [
         {
-            "name": "默认",
+            "name": "1920x1080",
             "path": [
                 "./resource"
             ]
@@ -29,7 +29,7 @@
     ],
     // 可选的 agent 示例
     "agent": {
-        "child_exec": "python",
+        "child_exec": "./python/python",
         "child_args": [
             "./agent/main.py"
         ]
