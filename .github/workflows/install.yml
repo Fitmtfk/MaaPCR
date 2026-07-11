@@ -156,6 +156,7 @@ jobs:
             cp -rpvn MFA/. install/
             if [ -f "install/MFAAvalonia.exe" ]; then
               mv -f install/MFAAvalonia.exe install/MaaPCR.exe
+            fi
             echo "MFA files copied successfully."
           else
             echo "MFA directory not found, skipping copy."
