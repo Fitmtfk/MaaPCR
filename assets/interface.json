@@ -11,7 +11,7 @@
     "welcome": "首次使用！欢迎使用 MAAPCR!",
     // 填写项目地址和版本号可实现自动更新功能
     "github": "https://github.com/Fitmtfk/MaaPCR",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "controller": [
         {
             "name": "安卓端",
@@ -37,7 +37,1458 @@
     "task": [
         {
             "name": "黎明界刷开局",
-            "entry": "黎明界主页"
+            "entry": "黎明界主页",
+            "default_check": true,
+            "option": [
+                "工会选择",
+                "选人1",
+                "选人2",
+                "选人3"
+            ]
         }
-    ]
+    ],
+    "option": {
+        "工会选择": {
+            "type": "select",
+            "cases": [
+                {
+                    "name": "美食殿堂",
+                    "pipeline_override": {
+                        "工会选择": {
+                            "recognition": {
+                                "type": "TemplateMatch",
+                                "param": {
+                                    "template": [
+                                        "美食殿堂.png"
+                                    ]
+                                }
+                            }
+                        },
+                        "工会选择滑动": {
+                            "action": {
+                                "type": "Swipe",
+                                "param": {
+                                    "begin": [
+                                        0,
+                                        540,
+                                        50,
+                                        50
+                                    ],
+                                    "end": [
+                                        [
+                                            960,
+                                            540,
+                                            50,
+                                            50
+                                        ]
+                                    ],
+                                    "duration": [
+                                        200
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "破晓之星",
+                    "pipeline_override": {
+                        "工会选择": {
+                            "recognition": {
+                                "type": "TemplateMatch",
+                                "param": {
+                                    "template": [
+                                        "破晓之星.png"
+                                    ]
+                                }
+                            }
+                        },
+                        "工会选择滑动": {
+                            "action": {
+                                "type": "Swipe",
+                                "param": {
+                                    "begin": [
+                                        0,
+                                        540,
+                                        50,
+                                        50
+                                    ],
+                                    "end": [
+                                        [
+                                            960,
+                                            540,
+                                            50,
+                                            50
+                                        ]
+                                    ],
+                                    "duration": [
+                                        200
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "咲恋救济院",
+                    "pipeline_override": {
+                        "工会选择": {
+                            "recognition": {
+                                "type": "TemplateMatch",
+                                "param": {
+                                    "template": [
+                                        "咲恋救济院.png"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "王宫骑士团",
+                    "pipeline_override": {
+                        "工会选择": {
+                            "recognition": {
+                                "type": "TemplateMatch",
+                                "param": {
+                                    "template": [
+                                        "王宫骑士团.png"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "拉比林斯",
+                    "pipeline_override": {
+                        "工会选择": {
+                            "recognition": {
+                                "type": "TemplateMatch",
+                                "param": {
+                                    "template": [
+                                        "拉比林斯.png"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "选人1": {
+            "type": "select",
+            "description": "行-列(请勿与“选人2、3”重复;请勿选择不存在角色的行列)",
+            "cases": [
+                {
+                    "name": "1-1",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        172,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-2",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        382,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-3",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        592,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-4",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        802,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-5",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1012,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-6",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1222,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-7",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1432,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-8",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1642,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-1",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        172,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-2",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        382,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-3",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        592,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-4",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        802,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-5",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1012,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-6",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1222,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-7",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1432,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-8",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1642,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-1",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        172,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-2",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        382,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-3",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        592,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-4",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        802,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-5",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1012,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-6",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1222,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-7",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1432,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-8",
+                    "pipeline_override": {
+                        "选人1": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1642,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "选人2": {
+            "type": "select",
+            "description": "行-列(请勿与“选人1、3”重复;请勿选择不存在角色的行列)",
+            "cases": [
+                {
+                    "name": "1-1",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        172,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-2",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        382,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-3",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        592,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-4",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        802,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-5",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1012,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-6",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1222,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-7",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1432,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-8",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1642,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-1",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        172,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-2",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        382,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-3",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        592,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-4",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        802,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-5",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1012,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-6",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1222,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-7",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1432,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-8",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1642,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-1",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        172,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-2",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        382,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-3",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        592,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-4",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        802,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-5",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1012,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-6",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1222,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-7",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1432,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-8",
+                    "pipeline_override": {
+                        "选人2": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1642,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "选人3": {
+            "type": "select",
+            "description": "行-列(请勿与“选人1、2”重复;请勿选择不存在角色的行列)",
+            "cases": [
+                {
+                    "name": "1-1",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        172,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-2",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        382,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-3",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        592,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-4",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        802,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-5",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1012,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-6",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1222,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-7",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1432,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1-8",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1642,
+                                        382,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-1",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        172,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-2",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        382,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-3",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        592,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-4",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        802,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-5",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1012,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-6",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1222,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-7",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1432,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2-8",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1642,
+                                        592,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-1",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        172,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-2",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        382,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-3",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        592,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-4",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        802,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-5",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1012,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-6",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1222,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-7",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1432,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3-8",
+                    "pipeline_override": {
+                        "选人3": {
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [
+                                        1642,
+                                        802,
+                                        97,
+                                        97
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
 }

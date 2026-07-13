@@ -1,193 +1,16 @@
 {
-    "黎明界主页": {
+    "1层路线检查": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "Custom",
             "param": {
-                "template": [
-                    "黎明界主页.png"
-                ]
+                "custom_recognition": "route_recognition"
             }
         },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1140,
-                    480,
-                    70,
-                    70
-                ]
-            }
-        },
-        "post_delay": 500,
-        "timeout": 1000,
-        "next": [
-            "工会选择——拉比林斯"
-        ],
-        "on_error": [
-            "冒险"
-        ]
-    },
-    "工会选择——拉比林斯": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "拉比林斯.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target_offset": [
-                    33,
-                    133,
-                    -62,
-                    -12
-                ]
-            }
-        },
-        "post_delay": 200,
-        "timeout": 500,
-        "on_error": [
-            "右滑"
-        ],
-        "next": [
-            "工会选择确认"
-        ]
-    },
-    "右滑": {
-        "action": {
-            "type": "Swipe",
-            "param": {
-                "begin": [
-                    960,
-                    540,
-                    50,
-                    50
-                ],
-                "end": [
-                    [
-                        0,
-                        540,
-                        50,
-                        50
-                    ]
-                ],
-                "duration": [
-                    200
-                ]
-            }
-        },
-        "post_delay": 1200,
-        "next": [
-            "工会选择——拉比林斯"
-        ]
-    },
-    "冒险": {
-        "recognition": {
-            "type": "Or",
-            "param": {
-                "any_of": [
-                    "冒险-a",
-                    "冒险-b"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    975,
-                    1000,
-                    200,
-                    60
-                ]
-            }
-        },
+        "pre_delay": 0,
         "post_delay": 0,
+        "rate_limit": 500,
         "next": [
-            "进入黎明界"
-        ]
-    },
-    "进入黎明界": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "黎明界入口.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_delay": 0,
-        "next": [
-            "黎明界主页"
-        ],
-        "on_error": [
-            "冒险"
-        ]
-    },
-    "工会选择确认": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "确认.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_delay": 4000,
-        "timeout": 100,
-        "next": [
-            "点击空白"
-        ]
-    },
-    "地图": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "地图.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_delay": 300,
-        "next": [
-            "BOSS1"
-        ],
-        "on_error": [
-            "地图"
-        ]
-    },
-    "点击空白": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    20,
-                    31,
-                    17,
-                    19
-                ]
-            }
-        },
-        "post_delay": 400,
-        "timeout": 500,
-        "next": [
-            "地图"
-        ],
-        "on_error": [
-            "点击空白"
+            "打开选人界面"
         ]
     },
     "BOSS1": {
@@ -218,284 +41,6 @@
             "厄勒克特拉夫人",
             "冰霜魔狼"
         ]
-    },
-    "巨型魔像": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "巨型魔像.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1455,
-                    954,
-                    45,
-                    43
-                ]
-            }
-        },
-        "post_delay": 300,
-        "next": [
-            "退出"
-        ]
-    },
-    "退出": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1215,
-                    940,
-                    297,
-                    74
-                ]
-            }
-        },
-        "post_delay": 200,
-        "next": [
-            "退出确认"
-        ]
-    },
-    "退出确认": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "确认.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_delay": 200,
-        "next": [
-            "黎明界主页"
-        ]
-    },
-    "毒液沙罗曼蛇": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "毒液沙罗曼蛇.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1455,
-                    954,
-                    45,
-                    43
-                ]
-            }
-        },
-        "post_delay": 300,
-        "next": [
-            "BOSS2蛇"
-        ]
-    },
-    "暗黑滴水嘴兽": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "暗黑滴水嘴兽.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1455,
-                    954,
-                    45,
-                    43
-                ]
-            }
-        },
-        "post_delay": 300,
-        "next": [
-            "退出"
-        ]
-    },
-    "厄勒克特拉夫人": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "厄勒克特拉夫人.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1455,
-                    954,
-                    45,
-                    43
-                ]
-            }
-        },
-        "post_delay": 300,
-        "next": [
-            "BOSS2"
-        ]
-    },
-    "冰霜魔狼": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "冰霜魔狼.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1455,
-                    954,
-                    45,
-                    43
-                ]
-            }
-        },
-        "post_delay": 300,
-        "next": [
-            "BOSS2"
-        ]
-    },
-    "炸脖龙": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "炸脖龙.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1455,
-                    954,
-                    45,
-                    43
-                ]
-            }
-        },
-        "post_delay": 300,
-        "next": [
-            "查看1层路线"
-        ]
-    },
-    "愤怒巨龙": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "愤怒巨龙.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1455,
-                    954,
-                    45,
-                    43
-                ]
-            }
-        },
-        "post_delay": 300,
-        "next": [
-            "查看1层路线"
-        ]
-    },
-    "究极守护者": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "究极守护者.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1455,
-                    954,
-                    45,
-                    43
-                ]
-            }
-        },
-        "post_delay": 300,
-        "next": [
-            "查看1层路线"
-        ]
-    },
-    "奇美拉": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "奇美拉.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1455,
-                    954,
-                    45,
-                    43
-                ]
-            }
-        },
-        "post_delay": 200
-    },
-    "领主哥布林": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "领主哥布林.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1455,
-                    954,
-                    45,
-                    43
-                ]
-            }
-        },
-        "post_delay": 200
     },
     "BOSS2": {
         "recognition": {
@@ -556,66 +101,132 @@
             "关闭BOSS2窗口"
         ]
     },
-    "节点1": {
+    "关闭BOSS2窗口": {
         "action": {
             "type": "Click",
             "param": {
                 "target": [
-                    35,
-                    835,
-                    38,
+                    1455,
+                    954,
+                    45,
                     43
                 ]
             }
         },
-        "post_delay": 200
-    },
-    "选人1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    394,
-                    338,
-                    74,
-                    86
-                ]
-            }
-        },
+        "post_delay": 300,
         "next": [
-            "选人2"
+            "退出"
         ]
     },
-    "选人2": {
+    "关闭选人弹窗": {
         "action": {
             "type": "Click",
             "param": {
                 "target": [
-                    1452,
-                    335,
-                    86,
-                    86
+                    39,
+                    202,
+                    38,
+                    38
                 ]
             }
         },
+        "repeat": 5,
+        "repeat_delay": 500
+    },
+    "冒险": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "冒险-a",
+                    "冒险-b"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    975,
+                    1000,
+                    200,
+                    60
+                ]
+            }
+        },
+        "post_delay": 0,
         "next": [
-            "选人3"
+            "进入黎明界"
         ]
     },
-    "选人3": {
+    "冒险-a": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "冒险-a.png"
+                ]
+            }
+        }
+    },
+    "冒险-b": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "冒险-b.png"
+                ]
+            }
+        }
+    },
+    "冰霜魔狼": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "冰霜魔狼.png"
+                ]
+            }
+        },
         "action": {
             "type": "Click",
             "param": {
                 "target": [
-                    182,
-                    540,
-                    79,
-                    90
+                    1455,
+                    954,
+                    45,
+                    43
                 ]
             }
         },
+        "post_delay": 300,
         "next": [
-            "去邀请"
+            "BOSS2"
+        ]
+    },
+    "厄勒克特拉夫人": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "厄勒克特拉夫人.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1455,
+                    954,
+                    45,
+                    43
+                ]
+            }
+        },
+        "post_delay": 300,
+        "next": [
+            "BOSS2"
         ]
     },
     "去邀请": {
@@ -633,6 +244,214 @@
         "post_delay": 200,
         "next": [
             "关闭选人弹窗"
+        ]
+    },
+    "工会选择滑动": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    960,
+                    540,
+                    50,
+                    50
+                ],
+                "end": [
+                    [
+                        0,
+                        540,
+                        50,
+                        50
+                    ]
+                ],
+                "duration": [
+                    200
+                ]
+            }
+        },
+        "post_delay": 1200,
+        "next": [
+            "工会选择"
+        ]
+    },
+    "地图": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "地图.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_delay": 300,
+        "next": [
+            "BOSS1"
+        ],
+        "on_error": [
+            "地图"
+        ]
+    },
+    "奇美拉": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "奇美拉.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1455,
+                    954,
+                    45,
+                    43
+                ]
+            }
+        },
+        "post_delay": 200
+    },
+    "工会选择": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "拉比林斯.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [
+                    33,
+                    133,
+                    -62,
+                    -12
+                ]
+            }
+        },
+        "post_delay": 200,
+        "timeout": 500,
+        "next": [
+            "工会选择确认"
+        ],
+        "on_error": [
+            "工会选择滑动"
+        ]
+    },
+    "工会选择确认": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "确认.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_delay": 4000,
+        "timeout": 100,
+        "next": [
+            "点击空白"
+        ]
+    },
+    "巨型魔像": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "巨型魔像.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1455,
+                    954,
+                    45,
+                    43
+                ]
+            }
+        },
+        "post_delay": 300,
+        "next": [
+            "退出"
+        ]
+    },
+    "愤怒巨龙": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "愤怒巨龙.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1455,
+                    954,
+                    45,
+                    43
+                ]
+            }
+        },
+        "post_delay": 300,
+        "next": [
+            "查看1层路线"
+        ]
+    },
+    "打开选人界面": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    39,
+                    202,
+                    38,
+                    38
+                ]
+            }
+        },
+        "next": [
+            "选人1"
+        ]
+    },
+    "暗黑滴水嘴兽": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "暗黑滴水嘴兽.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1455,
+                    954,
+                    45,
+                    43
+                ]
+            }
+        },
+        "post_delay": 300,
+        "next": [
+            "退出"
         ]
     },
     "查看1层路线": {
@@ -669,21 +488,15 @@
             "退出"
         ]
     },
-    "1层路线检查": {
+    "毒液沙罗曼蛇": {
         "recognition": {
-            "type": "Custom",
+            "type": "TemplateMatch",
             "param": {
-                "custom_recognition": "route_recognition"
+                "template": [
+                    "毒液沙罗曼蛇.png"
+                ]
             }
         },
-        "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 500,
-        "next": [
-            "打开选人界面"
-        ]
-    },
-    "关闭BOSS2窗口": {
         "action": {
             "type": "Click",
             "param": {
@@ -697,56 +510,304 @@
         },
         "post_delay": 300,
         "next": [
-            "退出"
+            "BOSS2蛇"
         ]
     },
-    "打开选人界面": {
+    "炸脖龙": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "炸脖龙.png"
+                ]
+            }
+        },
         "action": {
             "type": "Click",
             "param": {
                 "target": [
-                    39,
-                    202,
+                    1455,
+                    954,
+                    45,
+                    43
+                ]
+            }
+        },
+        "post_delay": 300,
+        "next": [
+            "查看1层路线"
+        ]
+    },
+    "点击空白": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    20,
+                    31,
+                    17,
+                    19
+                ]
+            }
+        },
+        "post_delay": 400,
+        "timeout": 500,
+        "next": [
+            "地图"
+        ],
+        "on_error": [
+            "点击空白"
+        ]
+    },
+    "究极守护者": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "究极守护者.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1455,
+                    954,
+                    45,
+                    43
+                ]
+            }
+        },
+        "post_delay": 300,
+        "next": [
+            "查看1层路线"
+        ]
+    },
+    "节点1": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    35,
+                    835,
                     38,
-                    38
+                    43
+                ]
+            }
+        },
+        "post_delay": 200
+    },
+    "进入黎明界": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "黎明界入口.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_delay": 0,
+        "next": [
+            "黎明界主页"
+        ],
+        "on_error": [
+            "冒险"
+        ]
+    },
+    "退出": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1215,
+                    940,
+                    297,
+                    74
+                ]
+            }
+        },
+        "post_delay": 200,
+        "next": [
+            "退出确认"
+        ]
+    },
+    "退出确认": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "确认.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_delay": 200,
+        "next": [
+            "黎明界主页"
+        ]
+    },
+    "选人1": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    382,
+                    330,
+                    97,
+                    97
                 ]
             }
         },
         "next": [
-            "选人1"
+            "选人2"
         ]
     },
-    "关闭选人弹窗": {
+    "选人2": {
         "action": {
             "type": "Click",
             "param": {
                 "target": [
-                    39,
-                    202,
-                    38,
-                    38
+                    1442,
+                    330,
+                    97,
+                    97
                 ]
             }
         },
-        "repeat": 5,
-        "repeat_delay": 500
+        "next": [
+            "选人3"
+        ]
     },
-    "冒险-b": {
-        "recognition": {
-            "type": "TemplateMatch",
+    "选人3": {
+        "action": {
+            "type": "Click",
             "param": {
-                "template": [
-                    "冒险-b.png"
+                "target": [
+                    172,
+                    540,
+                    97,
+                    97
                 ]
             }
-        }
+        },
+        "next": [
+            "去邀请"
+        ]
     },
-    "冒险-a": {
+    "领主哥布林": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
                 "template": [
-                    "冒险-a.png"
+                    "领主哥布林.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1455,
+                    954,
+                    45,
+                    43
+                ]
+            }
+        },
+        "post_delay": 200
+    },
+    "黎明界主页": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "黎明界主页.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1140,
+                    480,
+                    70,
+                    70
+                ]
+            }
+        },
+        "post_delay": 500,
+        "timeout": 1000,
+        "next": [
+            "工会选择"
+        ],
+        "on_error": [
+            "冒险"
+        ]
+    },
+    "左滑": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    0,
+                    540,
+                    50,
+                    50
+                ],
+                "end": [
+                    [
+                        960,
+                        540,
+                        50,
+                        50
+                    ]
+                ],
+                "duration": [
+                    200
+                ]
+            }
+        },
+        "post_delay": 1200
+    },
+    "工会选择-测试": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "破晓之星.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [
+                    33,
+                    133,
+                    -62,
+                    -12
+                ]
+            }
+        },
+        "post_delay": 200,
+        "timeout": 500
+    },
+    "选人测试": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    394,
+                    338,
+                    74,
+                    86
                 ]
             }
         }
