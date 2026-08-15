@@ -1,6 +1,14 @@
 name: build_agent
 
 on:
+  push:
+    paths:
+      - "agent/cpp/**"
+      - ".github/workflows/build_agent.yml"
+  pull_request:
+    paths:
+      - "agent/cpp/**"
+      - ".github/workflows/build_agent.yml"
   workflow_dispatch:
 
 jobs:
@@ -16,14 +24,8 @@ jobs:
         with:
           submodules: true
 
-      - name: Setup vcpkg
-        run: |
-          cd ${{ github.workspace }}
-          if (-not (Test-Path "vcpkg")) {
-            git clone https://github.com/microsoft/vcpkg.git
-          }
-          .\vcpkg\bootstrap-vcpkg.bat
-          .\vcpkg\vcpkg integrate install
+      - name: Install OpenCV (Windows)
+        run: choco install opencv -y
 
       - name: Download MaaFramework
         uses: robinraju/release-downloader@v1
@@ -34,18 +36,11 @@ jobs:
           out-file-path: "deps"
           extract: true
 
-      - name: Install dependencies
-        shell: pwsh
-        run: |
-          $vcpkg = "${{ github.workspace }}\vcpkg"
-          & $vcpkg\vcpkg.exe install opencv4:x64-windows --recurse
-
       - name: Configure CMake
         shell: pwsh
         run: |
-          $env:VCPKG_ROOT = "${{ github.workspace }}\vcpkg"
           cmake -S agent/cpp -B agent/cpp/build `
-            -DCMAKE_TOOLCHAIN_FILE=$env:VCPKG_ROOT\scripts\buildsystems\vcpkg.cmake `
+            -DCMAKE_PREFIX_PATH=C:\Program Files\OpenCV `
             -DMAA_FRAMEWORK_DIR="${{ github.workspace }}\deps\MaaFramework" `
             -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
