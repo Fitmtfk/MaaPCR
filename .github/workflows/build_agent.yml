@@ -54,13 +54,6 @@ jobs:
         run: |
           cmake --build agent/cpp/build --config RelWithDebInfo
 
-      - name: Copy DLLs
-        shell: pwsh
-        run: |
-          $maaBin = "${{ github.workspace }}\deps\MaaFramework\bin"
-          $outDir = "agent/cpp/build/RelWithDebInfo"
-          Copy-Item "$maaBin\*.dll" -Destination $outDir -Force
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:

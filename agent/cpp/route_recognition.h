@@ -48,6 +48,9 @@ public:
     bool load_templates(const std::filesystem::path& base_path);
     std::vector<RouteInfo> analyze(const cv::Mat& image);
 
+    bool is_initialized() const { return m_initialized; }
+    void reset() { m_initialized = false; }
+
 private:
     void find_nodes(const cv::Mat& img, std::vector<std::vector<Node>>& grid_data,
                     const cv::Mat& template_img, NodeType type, float threshold = 0.75f);
@@ -58,20 +61,25 @@ private:
                           int row_curr, int row_next,
                           float threshold = 0.82f);
 
-    std::vector<std::vector<std::string>> find_all_paths(const GameGraph& graph,
-                                                         const std::string& current_node,
-                                                         NodeType end_type,
-                                                         const std::vector<std::string>& current_path);
+   std::vector<std::vector<std::string>> find_all_paths(const GameGraph& graph,
+                                                          const std::string& current_node,
+                                                          NodeType end_type,
+                                                          std::vector<std::string>& current_path);
 
     std::vector<RouteInfo> plan_routes(const GameGraph& graph);
 
     cv::Mat tpl_char_;
     cv::Mat tpl_event_;
     cv::Mat tpl_normal_;
-    cv::Mat tpl_road_;
     cv::Mat tpl_road_bgr_;
     cv::Mat tpl_road_alpha_;
+    cv::Mat tpl_road_rotated_bgr_down_;
+    cv::Mat tpl_road_rotated_alpha_down_;
+    cv::Mat tpl_road_rotated_bgr_up_;
+    cv::Mat tpl_road_rotated_alpha_up_;
 
     static const std::vector<std::pair<int, int>> columns_x_;
     static const std::vector<std::pair<int, int>> rows_y_;
+
+    bool m_initialized = false;
 };

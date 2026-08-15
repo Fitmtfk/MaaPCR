@@ -62,49 +62,19 @@ MaaBool RouteRecognitionCallback(
         }
     }
 
-    std::cerr << "[DEBUG] Working directory: " << fs::current_path() << std::endl;
-    std::cerr << "[DEBUG] base_path: " << fs::path(base_path) << std::endl;
-    std::cerr << "[DEBUG] pi_resource_str: " << pi_resource_str << std::endl;
-    
     if (!g_recognition.load_templates(fs::path(base_path))) {
-        std::string detail = R"({"详情":"模板加载失败"})";
-        MaaStringBufferSetEx(out_detail, detail.c_str(), detail.size());
-        return true;
+        return false;
     }
 
     std::vector<RouteInfo> routes = g_recognition.analyze(mat);
 
-    std::ostringstream oss;
-    oss << R"({"详情":""") << (routes.empty() ? "路线不佳" : "路线优秀") << R"(", "routes": [)";
-
-    for (size_t i = 0; i < routes.size(); i++) {
-        if (i > 0) oss << ", ";
-        oss << R"({ "path": [)";
-        for (size_t j = 0; j < routes[i].node_path.size(); j++) {
-            if (j > 0) oss << ", ";
-            oss << "\"" << routes[i].node_path[j] << "\"";
-        }
-        oss << R"(], "types": [)";
-        for (size_t j = 0; j < routes[i].type_chain.size(); j++) {
-            if (j > 0) oss << ", ";
-            oss << "\"" << routes[i].type_chain[j] << "\"";
-        }
-        oss << R"(], "chars)" << routes[i].chars_count
-            << ", " << "\"events\"" << routes[i].events_count
-            << ", " << "\"normals\"" << routes[i].normals_count
-            << "}";
-    }
-
-    oss << R"(]})" << std::endl;
-
-    MaaStringBufferSetEx(out_detail, oss.str().c_str(), oss.str().size());
-
     if (!routes.empty()) {
         MaaRect box = {0, 0, 0, 0};
         *out_box = box;
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 int main(int argc, char** argv)
@@ -113,9 +83,6 @@ int main(int argc, char** argv)
         std::cerr << "Usage: " << argv[0] << " <socket_id>" << std::endl;
         return 1;
     }
-
-    std::string log_dir = "./debug";
-    MaaGlobalSetOption(MaaGlobalOption_LogDir, static_cast<void*>(log_dir.data()), log_dir.size());
 
     MaaAgentServerRegisterCustomRecognition("route_recognition", RouteRecognitionCallback, nullptr);
 
