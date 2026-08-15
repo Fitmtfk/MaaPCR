@@ -1,0 +1,68 @@
+name: build_agent
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        arch: [x86_64]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup vcpkg
+        run: |
+          cd ${{ github.workspace }}
+          if (-not (Test-Path "vcpkg")) {
+            git clone https://github.com/microsoft/vcpkg.git
+          }
+          .\vcpkg\bootstrap-vcpkg.bat
+          .\vcpkg\vcpkg integrate install
+
+      - name: Download MaaFramework
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: MaaXYZ/MaaFramework
+          fileName: "MAA-win-x86_64*"
+          latest: true
+          out-file-path: "deps"
+          extract: true
+
+      - name: Install dependencies
+        shell: pwsh
+        run: |
+          $vcpkg = "${{ github.workspace }}\vcpkg"
+          & $vcpkg\vcpkg.exe install opencv4:x64-windows --recurse
+
+      - name: Configure CMake
+        shell: pwsh
+        run: |
+          $env:VCPKG_ROOT = "${{ github.workspace }}\vcpkg"
+          cmake -S agent/cpp -B agent/cpp/build `
+            -DCMAKE_TOOLCHAIN_FILE=$env:VCPKG_ROOT\scripts\buildsystems\vcpkg.cmake `
+            -DMAA_FRAMEWORK_DIR="${{ github.workspace }}\deps\MaaFramework" `
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+      - name: Build
+        shell: pwsh
+        run: |
+          cmake --build agent/cpp/build --config RelWithDebInfo
+
+      - name: Copy DLLs
+        shell: pwsh
+        run: |
+          $maaBin = "${{ github.workspace }}\deps\MaaFramework\bin"
+          $outDir = "agent/cpp/build/RelWithDebInfo"
+          Copy-Item "$maaBin\*.dll" -Destination $outDir -Force
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: route_recognition-win-x64
+          path: agent/cpp/build/RelWithDebInfo/
