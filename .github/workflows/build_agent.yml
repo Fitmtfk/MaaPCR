@@ -40,17 +40,16 @@ jobs:
         shell: pwsh
         run: |
           cmake -S agent/cpp -B agent/cpp/build `
-            -DCMAKE_PREFIX_PATH=C:\Program Files\OpenCV `
-            -DMAA_FRAMEWORK_DIR="${{ github.workspace }}\deps\MaaFramework" `
-            -DCMAKE_BUILD_TYPE=RelWithDebInfo
+            -DCMAKE_PREFIX_PATH=C:\Program Files\OpenCV\build `
+            -DMAA_FRAMEWORK_DIR="${{ github.workspace }}\deps\MaaFramework"
 
       - name: Build
         shell: pwsh
         run: |
-          cmake --build agent/cpp/build --config RelWithDebInfo
+          cmake --build agent/cpp/build --config Release --target publish
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: route_recognition-win-x64
-          path: agent/cpp/build/RelWithDebInfo/
+          path: agent/cpp/build/dist/
