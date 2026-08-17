@@ -456,7 +456,7 @@ debug
 
 #杂项
 *.ipynb
-agent/*.png
+AgentServer/python/*.png
 assets/agent
 *.mpe.json
 *.ipynb_checkpoints

@@ -3,11 +3,11 @@ name: build_agent
 on:
   push:
     paths:
-      - "agent/cpp/**"
+      - "AgentServer/**"
       - ".github/workflows/build_agent.yml"
   pull_request:
     paths:
-      - "agent/cpp/**"
+      - "AgentServer/**"
       - ".github/workflows/build_agent.yml"
   workflow_dispatch:
 
@@ -24,32 +24,41 @@ jobs:
         with:
           submodules: true
 
-      - name: Install OpenCV (Windows)
-        run: choco install opencv -y
-
       - name: Download MaaFramework
         uses: robinraju/release-downloader@v1
         with:
           repository: MaaXYZ/MaaFramework
           fileName: "MAA-win-x86_64*"
           latest: true
-          out-file-path: "deps"
+          out-file-path: "MaaFramework"
           extract: true
+      
+      - name: Download MaaDeps
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: MaaXYZ/MaaDeps
+          fileName: "MaaDeps-x64-windows-devel.tar.xz"
+          latest: true
+          out-file-path: "deps"
+          extract: false
+          
+      - name: Extract MaaDeps
+        run: |
+          mkdir -p deps/MaaDeps
+          tar -xf deps/MaaDeps-x64-windows-devel.tar.xz -C deps/MaaDeps
 
       - name: Configure CMake
         shell: pwsh
         run: |
-          cmake -S agent/cpp -B agent/cpp/build `
-            -DCMAKE_PREFIX_PATH=C:\Program Files\OpenCV\build `
-            -DMAA_FRAMEWORK_DIR="${{ github.workspace }}\deps\MaaFramework"
+          cmake -S AgentServer -B AgentServer/build
 
       - name: Build
         shell: pwsh
         run: |
-          cmake --build agent/cpp/build --config Release --target publish
+          cmake --build AgentServer/build --config Release -j
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: route_recognition-win-x64
-          path: agent/cpp/build/dist/
+          name: MaaPCRAgentServer
+          path: agent
