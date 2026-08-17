@@ -30,7 +30,7 @@ jobs:
           repository: MaaXYZ/MaaFramework
           fileName: "MAA-win-x86_64*"
           latest: true
-          out-file-path: "MaaFramework"
+          out-file-path: "deps"
           extract: true
       
       - name: Download MaaDeps
