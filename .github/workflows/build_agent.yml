@@ -57,6 +57,11 @@ jobs:
         run: |
           cmake --build AgentServer/build --config Release -j
 
+      - name: Copy Launcher
+        shell: pwsh
+        run: |
+          Copy-Item -Path ".\AgentServer\agent_launcher.bat" -Destination ".\agent\agent_launcher.bat" -Force
+      
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:

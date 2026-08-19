@@ -1,92 +1,105 @@
+#include "globals.h"
+
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <filesystem>
+#include <cstdlib>
+#include <nlohmann/json.hpp>
 
 #include "MaaAgentServer/MaaAgentServerAPI.h"
 #include "MaaFramework/MaaAPI.h"
-#include "MaaFramework/Utility/MaaBuffer.h"
 
 #include "route_recognition.h"
 
+
 namespace fs = std::filesystem;
+using json = nlohmann::json;
 
-static RouteRecognition g_recognition;
-
-MaaBool RouteRecognitionCallback(
-    MaaContext* context,
-    MaaTaskId task_id,
-    const char* node_name,
-    const char* custom_recognition_name,
-    const char* custom_recognition_param,
-    const MaaImageBuffer* image,
-    const MaaRect* roi,
-    void* trans_arg,
-    /* out */ MaaRect* out_box,
-    /* out */ MaaStringBuffer* out_detail)
+std::string GetEnvVar(const std::string &name)
 {
-    if (std::string(custom_recognition_name) != "route_recognition") {
-        return true;
+    // std::getenv 内部管理内存，不需要 free()
+    const char *env_val = std::getenv(name.c_str());
+
+    if (env_val != nullptr)
+    {
+        LOG(name + ":" + env_val);
+        return std::string(env_val);
     }
-
-    const void* data_ptr = MaaImageBufferGetRawData(image);
-    int width = MaaImageBufferWidth(image);
-    int height = MaaImageBufferHeight(image);
-    int channels = MaaImageBufferChannels(image);
-
-    int cv_type;
-    switch (channels) {
-        case 3: cv_type = CV_8UC3; break;
-        case 4: cv_type = CV_8UC4; break;
-        default: cv_type = CV_8UC1; channels = 1; break;
+    else
+    {
+        LOG("环境变量 " + name + " 不存在");
+        return "";
     }
+}
 
-    cv::Mat mat(height, width, cv_type, const_cast<void*>(data_ptr), static_cast<size_t>(width * channels));
-    mat = mat.clone();
+std::vector<std::string> GetResourcePaths()
+{
+    std::vector<std::string> paths;
 
-    std::string pi_resource_str;
-    if (custom_recognition_param && std::string(custom_recognition_param).size() > 0) {
-        pi_resource_str = std::string(custom_recognition_param);
-    }
-
-    std::string base_path = "./resource";
-    if (!pi_resource_str.empty()) {
-        auto path_pos = pi_resource_str.find("\"path\"");
-        if (path_pos != std::string::npos) {
-            auto colon_pos = pi_resource_str.find(":", path_pos);
-            auto quote1 = pi_resource_str.find("\"", colon_pos);
-            auto quote2 = pi_resource_str.find("\"", quote1 + 1);
-            if (quote1 != std::string::npos && quote2 != std::string::npos) {
-                base_path = pi_resource_str.substr(quote1 + 1, quote2 - quote1 - 1);
+    try
+    {
+        std::string pi_resource = GetEnvVar("PI_RESOURCE");
+        if (!pi_resource.empty())
+        {
+            json pi_json = json::parse(pi_resource);
+            LOG("pi_json:" + pi_json.dump());
+            if (!pi_json.empty() && pi_json.contains("path") && pi_json["path"].is_array())
+            {
+                for (const auto &item : pi_json["path"])
+                {
+                    if (item.is_string())
+                    {
+                        paths.push_back(item.get<std::string>());
+                    }
+                }
             }
         }
     }
-
-    if (!g_recognition.load_templates(fs::path(base_path))) {
-        return false;
+    catch (const json::parse_error &e)
+    {
+        LOG(std::string("JSON 解析失败: ") + e.what());
     }
 
-    std::vector<RouteInfo> routes = g_recognition.analyze(mat);
-
-    if (!routes.empty()) {
-        MaaRect box = {0, 0, 0, 0};
-        *out_box = box;
-        return true;
+    if (paths.empty())
+    {
+        std::string fallback_path = GetEnvVar("VSCODE_MAAFW_AGENT_RESOURCE");
+        if (!fallback_path.empty())
+        {
+            paths.push_back(fallback_path);
+        }
+        else
+        {
+            paths.push_back("./resource");
+        }
     }
 
-    return false;
+    return paths;
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-    if (argc < 2) {
+    Logger::Instance().Init("agent.log");
+
+    if (argc < 2)
+    {
         std::cerr << "Usage: " << argv[0] << " <socket_id>" << std::endl;
         return 1;
     }
 
+    std::vector<std::string> resource_paths = GetResourcePaths();
+    // std::cout << "Paths:" << std::endl;
+    LOG("Paths:");
+    for (const auto &path : resource_paths)
+    {
+        // std::cout << "  - " << path << std::endl;
+        LOG("  - " + path);
+    }
+    resource_path = resource_paths[0];
+
     MaaAgentServerRegisterCustomRecognition("route_recognition", RouteRecognitionCallback, nullptr);
 
-    const char* identifier = argv[1];
+    const char *identifier = argv[1];
     MaaAgentServerStartUp(identifier);
 
     MaaAgentServerJoin();

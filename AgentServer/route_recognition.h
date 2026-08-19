@@ -7,6 +7,8 @@
 #include <utility>
 #include <filesystem>
 
+#include "MaaFramework/Utility/MaaBuffer.h"
+
 enum class NodeType {
     EMPTY,
     CHAR,
@@ -83,3 +85,15 @@ private:
 
     bool m_initialized = false;
 };
+
+MaaBool RouteRecognitionCallback(
+    MaaContext *context,
+    MaaTaskId task_id,
+    const char *node_name,
+    const char *custom_recognition_name,
+    const char *custom_recognition_param,
+    const MaaImageBuffer *image,
+    const MaaRect *roi,
+    void *trans_arg,
+    /* out */ MaaRect *out_box,
+    /* out */ MaaStringBuffer *out_detail);

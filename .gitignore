@@ -460,3 +460,4 @@ AgentServer/python/*.png
 assets/agent
 *.mpe.json
 *.ipynb_checkpoints
+AgentServer/build.ps1
