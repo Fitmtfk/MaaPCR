@@ -1,6 +1,14 @@
 name: build_agent
 
 on:
+  push:
+    paths:
+      - "AgentServer/**"
+      - ".github/workflows/build_agent.yml"
+  pull_request:
+    paths:
+      - "AgentServer/**"
+      - ".github/workflows/build_agent.yml"
   workflow_dispatch:
 
 jobs:
@@ -16,15 +24,6 @@ jobs:
         with:
           submodules: true
 
-      - name: Setup vcpkg
-        run: |
-          cd ${{ github.workspace }}
-          if (-not (Test-Path "vcpkg")) {
-            git clone https://github.com/microsoft/vcpkg.git
-          }
-          .\vcpkg\bootstrap-vcpkg.bat
-          .\vcpkg\vcpkg integrate install
-
       - name: Download MaaFramework
         uses: robinraju/release-downloader@v1
         with:
@@ -34,28 +33,11 @@ jobs:
           out-file-path: "deps"
           extract: true
 
-      - name: Install dependencies
-        shell: pwsh
-        run: |
-          $vcpkg = "${{ github.workspace }}\vcpkg"
-          & $vcpkg\vcpkg.exe install opencv4:x64-windows --recurse
-
-      - name: Configure CMake
-        shell: pwsh
-        run: |
-          $env:VCPKG_ROOT = "${{ github.workspace }}\vcpkg"
-          cmake -S agent/cpp -B agent/cpp/build `
-            -DCMAKE_TOOLCHAIN_FILE=$env:VCPKG_ROOT\scripts\buildsystems\vcpkg.cmake `
-            -DMAA_FRAMEWORK_DIR="${{ github.workspace }}\deps\MaaFramework" `
-            -DCMAKE_BUILD_TYPE=RelWithDebInfo
-
-      - name: Build
-        shell: pwsh
-        run: |
-          cmake --build agent/cpp/build --config RelWithDebInfo
-
+      - name: Build Agent
+        uses: ./.github/actions/build_agent
+      
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: route_recognition-win-x64
-          path: agent/cpp/build/RelWithDebInfo/
+          name: MaaPCRAgentServer
+          path: agent
