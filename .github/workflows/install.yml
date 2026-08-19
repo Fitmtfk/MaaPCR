@@ -8,6 +8,22 @@ env:
   MFAA_VERSION: ""
 
 on:
+  push:
+    tags:
+      - "v*"
+    branches:
+      - main
+    paths:
+      - ".github/workflows/install.yml"
+      - "assets/**"
+      - "AgentServer"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/install.yml"
+      - "assets/**"
+      - "AgentServer"
   workflow_dispatch:
 
 jobs:
@@ -75,6 +91,9 @@ jobs:
           out-file-path: "deps"
           extract: true
 
+      - name: Build Agent
+        uses: ./.github/actions/build-agent
+        
       - name: Download MFAAvalonia
         id: download_mfa
         uses: robinraju/release-downloader@v1
