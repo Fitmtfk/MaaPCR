@@ -1,0 +1,35 @@
+name: 'Build AgentServer'
+description: 'Build AgentServer binaries and copy files'
+
+runs:
+  using: 'composite'
+  steps:
+      - name: Download MaaDeps
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: MaaXYZ/MaaDeps
+          fileName: "MaaDeps-x64-windows-devel.tar.xz"
+          latest: true
+          out-file-path: "deps"
+          extract: false
+          
+      - name: Extract MaaDeps
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path "deps/MaaDeps"
+          tar -xf deps/MaaDeps-x64-windows-devel.tar.xz -C deps/MaaDeps
+
+      - name: Configure CMake
+        shell: pwsh
+        run: |
+          cmake -S AgentServer -B AgentServer/build
+
+      - name: Build
+        shell: pwsh
+        run: |
+          cmake --build AgentServer/build --config Release -j
+
+      - name: Copy Launcher
+        shell: pwsh
+        run: |
+          Copy-Item -Path ".\AgentServer\agent_launcher.bat" -Destination ".\agent\agent_launcher.bat" -Force
