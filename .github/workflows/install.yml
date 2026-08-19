@@ -92,8 +92,8 @@ jobs:
           extract: true
 
       - name: Build Agent
-        uses: ./.github/actions/build-agent
-        
+        uses: ./.github/actions/build_agent
+
       - name: Download MFAAvalonia
         id: download_mfa
         uses: robinraju/release-downloader@v1
