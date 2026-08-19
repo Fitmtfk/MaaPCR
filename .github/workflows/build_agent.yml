@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
-          
+
       - name: Download MaaFramework
         uses: robinraju/release-downloader@v1
         with:
@@ -34,7 +34,7 @@ jobs:
           extract: true
 
       - name: Build Agent
-        uses: ./.github/actions/build-agent
+        uses: ./.github/actions/build_agent
       
       - name: Upload artifact
         uses: actions/upload-artifact@v4
