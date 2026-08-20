@@ -7,14 +7,14 @@ on:
     paths:
       - ".github/workflows/check.yml"
       - "assets/**"
-      - "**.py"
+      - "AgentServer"
   pull_request:
     branches:
       - "**"
     paths:
       - ".github/workflows/check.yml"
       - "assets/**"
-      - "**.py"
+      - "AgentServer"
   workflow_dispatch:
 
 jobs:
@@ -29,7 +29,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
+          
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpipewire-0.3-0
+          
       - name: Run maa-checker
         run: |
           npm ci
