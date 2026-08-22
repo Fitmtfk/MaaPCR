@@ -138,6 +138,7 @@ def install_agent():
         working_dir / "agent",
         install_path / "agent",
         dirs_exist_ok=True,
+        ignore=shutil.ignore_patterns(".gitkeep")
     )
 
 
