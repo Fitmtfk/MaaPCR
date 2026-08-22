@@ -36,7 +36,7 @@ MaaBool RouteRecognitionCallback(
 
     if (!g_recognition.load_templates(resource_path))
     {
-        LOG("资源路径错误");
+        ERROR("资源路径错误");
         return false;
     }
 
@@ -94,14 +94,16 @@ static cv::Mat imread_unicode(const std::filesystem::path &p, int flags)
     std::ifstream file(p, std::ios::binary);
     if (!file.is_open())
     {
-        std::cerr << "Error: [imread_unicode] 无法打开文件: " << p << std::endl;
+        // std::cerr << "Error: [imread_unicode] 无法打开文件: " << p << std::endl;
+        ERROR("[imread_unicode] 无法打开文件: " + p.string());
         return {};
     }
     const std::vector<uchar> buffer(std::istreambuf_iterator<char>(file), {});
     file.close();
     if (buffer.empty())
     {
-        std::cerr << "Error: [imread_unicode] 文件为空: " << p << std::endl;
+        // std::cerr << "Error: [imread_unicode] 文件为空: " << p << std::endl;
+        ERROR("[imread_unicode] 文件为空: " + p.string());
         return {};
     }
     try
@@ -109,13 +111,15 @@ static cv::Mat imread_unicode(const std::filesystem::path &p, int flags)
         cv::Mat img = cv::imdecode(buffer, flags);
         if (img.empty())
         {
-            std::cerr << "Error: [imread_unicode] cv::imdecode 解码失败 (图像为空): " << p << std::endl;
+            // std::cerr << "Error: [imread_unicode] cv::imdecode 解码失败 (图像为空): " << p << std::endl;
+            ERROR("[imread_unicode] cv::imdecode 解码失败 (图像为空): " + p.string());
         }
         return img;
     }
     catch (const cv::Exception &ex)
     {
-        std::cerr << "Error: [imread_unicode] cv::imdecode 失败: " << ex.what() << std::endl;
+        // std::cerr << "Error: [imread_unicode] cv::imdecode 失败: " << ex.what() << std::endl;
+        ERROR("[imread_unicode] cv::imdecode 失败: " + std::string(ex.what()));
         return {};
     }
 }
@@ -131,7 +135,8 @@ bool RouteRecognition::load_templates(const std::filesystem::path &base_path)
     {
         if (mat.empty())
         {
-            std::cerr << "Failed to load: " << name << std::endl;
+            // std::cerr << "Failed to load: " << name << std::endl;
+            ERROR("Failed to load: " + name);
             return false;
         }
         return true;
@@ -431,15 +436,16 @@ std::vector<RouteInfo> RouteRecognition::analyze(const cv::Mat &image)
     static const char *type_names[] = {"EMPTY", "CHAR", "EVENT", "NORMAL"};
     for (int row = 0; row < 3; row++)
     {
-        std::cout << "Row " << row << ": ";
+        // std::cout << "Row " << row << ": ";
+        INFO_INLINE("Row " + std::to_string(row) + ": ");
         for (int col = 0; col < 3; col++)
         {
             // std::cout << type_names[static_cast<int>(grid_data[col][row].type)];
-            LOG_INLINE(type_names[static_cast<int>(grid_data[col][row].type)]);
+            INFO_INLINE(type_names[static_cast<int>(grid_data[col][row].type)]);
             if (col < 2)
-                LOG_INLINE(" ");
+                INFO_INLINE(" ");
         }
-        LOG("");
+        INFO("");
     }
 
     for (int col = 0; col < 2; col++)
@@ -468,6 +474,6 @@ std::vector<RouteInfo> RouteRecognition::analyze(const cv::Mat &image)
 
     results = plan_routes(graph);
     // std::cout << "Routes: " << results.size() << std::endl;
-    LOG("Routes:" + std::to_string(results.size()));
+    INFO("Routes:" + std::to_string(results.size()));
     return results;
 }

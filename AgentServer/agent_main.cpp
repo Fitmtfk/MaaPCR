@@ -12,7 +12,6 @@
 
 #include "route_recognition.h"
 
-
 namespace fs = std::filesystem;
 using json = nlohmann::json;
 
@@ -23,12 +22,12 @@ std::string GetEnvVar(const std::string &name)
 
     if (env_val != nullptr)
     {
-        LOG(name + ":" + env_val);
+        NONE(name + ":" + env_val);
         return std::string(env_val);
     }
     else
     {
-        LOG("环境变量 " + name + " 不存在");
+        NONE("环境变量 " + name + " 不存在");
         return "";
     }
 }
@@ -43,7 +42,7 @@ std::vector<std::string> GetResourcePaths()
         if (!pi_resource.empty())
         {
             json pi_json = json::parse(pi_resource);
-            LOG("pi_json:" + pi_json.dump());
+            NONE("pi_json:" + pi_json.dump());
             if (!pi_json.empty() && pi_json.contains("path") && pi_json["path"].is_array())
             {
                 for (const auto &item : pi_json["path"])
@@ -58,7 +57,7 @@ std::vector<std::string> GetResourcePaths()
     }
     catch (const json::parse_error &e)
     {
-        LOG(std::string("JSON 解析失败: ") + e.what());
+        NONE(std::string("JSON 解析失败: ") + e.what());
     }
 
     if (paths.empty())
@@ -89,11 +88,11 @@ int main(int argc, char **argv)
 
     std::vector<std::string> resource_paths = GetResourcePaths();
     // std::cout << "Paths:" << std::endl;
-    LOG("Paths:");
+    INFO("Paths:");
     for (const auto &path : resource_paths)
     {
         // std::cout << "  - " << path << std::endl;
-        LOG("  - " + path);
+        INFO("  - " + path);
     }
     resource_path = resource_paths[0];
 
